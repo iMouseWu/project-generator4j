@@ -1,41 +1,39 @@
 package com.generator.project.velocity;
 
 import java.io.StringWriter;
+import java.util.Map;
 import java.util.Properties;
 
 import com.generator.project.template.FileTemplate;
+import com.generator.project.template.Template;
 import com.generator.project.template.TemplateResolve;
-import org.apache.velocity.Template;
+import com.google.common.collect.Maps;
+import lombok.AllArgsConstructor;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
 
 /**
  * @author Created by iMouseWu on 2019-05-25.
  */
+@AllArgsConstructor
 public class VelocityTemplateResolve implements TemplateResolve {
-
-    private String templatePath;
 
     private FileTemplate fileTemplate;
 
+    private Map<String, Object> context = Maps.newHashMap();
+
     @Override
-    public com.generator.project.template.Template getTemplate() {
-        fileTemplate = new FileTemplate();
-        fileTemplate.setTemplatePath(templatePath);
+    public Template getTemplate() {
         return fileTemplate;
     }
 
     @Override
     public void resolve() {
         Properties pros = new Properties();
-        //pros.load(VelocityTemplateResolve.class.getClassLoader().getResourceAsStream("velocity.properties"));
         Velocity.init(pros);
-        VelocityContext context = new VelocityContext();
-        context.put("name", "Velocity");
-        context.put("project", "Jakarta");
-
-        Template template = Velocity.getTemplate(fileTemplate.getTemplatePath());
+        VelocityContext velocityContext = new VelocityContext(context);
+        org.apache.velocity.Template template = Velocity.getTemplate(fileTemplate.getTemplatePath());
         StringWriter writer = new StringWriter();
-        template.merge(context, writer);
+        template.merge(velocityContext, writer);
     }
 }
