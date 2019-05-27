@@ -1,6 +1,7 @@
 package com.generator.fastxml;
 
 import java.io.File;
+import java.lang.reflect.Field;
 import java.util.List;
 
 import org.dom4j.Attribute;
@@ -14,6 +15,15 @@ import org.dom4j.io.SAXReader;
 public class FastXML {
 
     public static <T> T parseObject(String url, Class<T> clazz) throws Exception {
+        Field[] fields = clazz.getDeclaredFields();
+        for(Field field : fields){
+            field.getName();
+            field.getType();
+        }
+
+
+
+
 
         T object = (T)clazz.newInstance();
         SAXReader reader = new SAXReader();
@@ -40,5 +50,4 @@ public class FastXML {
         File path = new File(FastXML.class.getResource("/").getPath());
         parseObject(path.getAbsolutePath() + "/config.xml", FastXML.class);
     }
-
 }
