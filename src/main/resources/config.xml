@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<prject name="test">
+    <module name="">
+        <module name="">
+            <package path="com.apple">
+                <class></class>
+                <class></class>
+                <package path="">
+                    <class></class>
+                </package>
+            </package>
+        </module>
+        <module></module>
+    </module>
+</prject>
