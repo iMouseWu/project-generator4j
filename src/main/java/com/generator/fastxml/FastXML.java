@@ -48,6 +48,6 @@ public class FastXML {
 
     public static void main(String[] args) throws Exception {
         File path = new File(FastXML.class.getResource("/").getPath());
-        parseObject(path.getAbsolutePath() + "/config.xml", FastXML.class);
+        //parseObject(path.getAbsolutePath() + "/config.xml", FastXML.class);
     }
 }
